@@ -1,5 +1,6 @@
+
 const postData ={
-    airport_id : 'SFO',
+    airport_id : 'YFO',
     note : 'this is my regularly visited airport.'
 }
 

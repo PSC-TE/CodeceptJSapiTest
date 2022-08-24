@@ -1,4 +1,5 @@
 const { setHeadlessWhen, setCommonPlugins } = require('@codeceptjs/configure');
+require('dotenv').config();
 
 // turn on headless mode when running with HEADLESS=true environment variable
 // export HEADLESS=true && npx codeceptjs run
@@ -12,25 +13,33 @@ exports.config = {
   output: './output',
   helpers: {
     REST: {
-      endpoint: 'https://gorest.co.in/public/v2/',
+      timeout: 100000,
+      endpoint: process.env.goRest_URL,
       prettyPrintJson: false,
       defaultHeaders: {
         // use Bearer Authorization
-        'Authorization': 'Bearer 0cbf1fe5581d59d2ced6d94b5c91227050eff309ac548ef564040f56b21ef8b6',
+        'Authorization': process.env.goRest_TOKEN,
         'Content-Type': 'application/json',
         'Accept': 'application/json',
       },
-      // endpoint: 'https://airportgap.dev-tester.com/api/',
+   
+      // endpoint: process.env.airport_URL,
       // prettyPrintJson: false,
+      
       // defaultHeaders: {
       //   // use Bearer Authorization
-      //   'Authorization': 'Bearer GpfiEJfmJ4ufouKWZxmwpcM4',
+      //   'Authorization': process.env.airport_TOKEN,
       //   'Content-Type': 'application/json',
       //   'Accept': 'application/json',
+        
       // },
+      
     },
     ChaiWrapper : {
       require: "codeceptjs-chai"
+    },
+    Mochawesome: {
+      uniqueScreenshotNames: true
     },
     JSONResponse: {}
   },

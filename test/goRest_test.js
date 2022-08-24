@@ -2,7 +2,7 @@
 Feature('TestCases ');
 let randomNum = Math.floor(Math.random()*10000)
 let userId;
-    Scenario('Crud operation', async ({I}) => {
+    Scenario.skip('Crud operation', async ({I}) => {
         const data ={
             email : `abc${randomNum}@sony.com`,
             name : `abc first name${randomNum}`,
@@ -40,8 +40,8 @@ let userId;
 });
 
 
-Scenario.skip('authentication Test', async ({ I }) => {
-    let res = await I.sendGetRequest(`users`);
+Scenario.only('authentication Test', async ({ I }) => {
+    let res = await I.sendGetRequest(`users?page=2`);
     console.log(res.data);
     I.seeResponseCodeIsSuccessful();
     I.seeResponseCodeIs(200);

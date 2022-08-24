@@ -2,14 +2,11 @@ const airportData = require('../helper/airport_data')
 
 Feature('Favorites airport')
 
-
 Scenario('get favorites airports without token',async ({I})=>{
    
     const res = await I.sendPostRequest('/favorites',airportData.postData)
-    // console.log(res);
+    console.log(res);
     I.seeResponseCodeIs(401)
-    // I.seeResponseContainsJson(json_res)
-    
 })
 
 
@@ -35,7 +32,12 @@ Scenario.only('get favorites airports with token',async ({I})=>{
     // I.haveRequestHeaders(header)
     let getRes =await I.sendGetRequest(`favorites/${airportId}`)
     console.log(getRes.data);
-    I.seeResponseCodeIs(200);
+    
+    // I.seeResponseCodeIs(200);
+    I.seeResponseValidByCallback(({ data, status, expect }) => {
+        expect(status).to.eql(200);
+        expect(data.data).to.include.any.keys(['id', 'type']);
+      });
     console.log('=============get favorite request success==================');
 
     
